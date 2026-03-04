@@ -44,8 +44,8 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 [[github](http://github.com/kelv5)]
 
-* Role: Developer
-* Responsibilities: Dev Ops + Threading
+* Role: Code Quality & Task Tracking
+* Responsibilities: UI
 
 ### James Doe
 
