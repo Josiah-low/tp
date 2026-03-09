@@ -33,6 +33,10 @@ public class AddressBookParserTest {
 
     private final AddressBookParser parser = new AddressBookParser();
 
+    public static final String LOWERCASE_LIST_COMMAND = "list";
+    public static final String UPPERCASE_LIST_COMMAND = "LIST";
+    public static final String ALTERNATING_CASE_LIST_COMMAND = "LisT";
+
     @Test
     public void parseCommand_add() throws Exception {
         Person person = new PersonBuilder().build();
@@ -97,5 +101,12 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
+    }
+
+    @Test
+    public void parseCommand_caseInsensitive() throws Exception {
+        assertTrue(parser.parseCommand(UPPERCASE_LIST_COMMAND) instanceof ListCommand);
+        assertTrue(parser.parseCommand(LOWERCASE_LIST_COMMAND) instanceof ListCommand);
+        assertTrue(parser.parseCommand(ALTERNATING_CASE_LIST_COMMAND) instanceof ListCommand);
     }
 }
