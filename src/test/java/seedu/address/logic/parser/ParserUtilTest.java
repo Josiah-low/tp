@@ -202,6 +202,7 @@ public class ParserUtilTest {
         Address expectedAddress = new Address("123, Jurong West");
 
         assertEquals(expectedAddress, ParserUtil.parseAddress(addressWithSpaces));
+    }
 
     @Test
     public void parseName_validValueWithExtraInternalWhitespace_returnsSanitizedName() throws Exception {
