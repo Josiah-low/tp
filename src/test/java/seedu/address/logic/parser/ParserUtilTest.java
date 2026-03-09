@@ -193,4 +193,11 @@ public class ParserUtilTest {
 
         assertEquals(expectedTagSet, actualTagSet);
     }
+    @Test
+    public void parseAddress_extraWhitespaces_returnsSanitizedAddress() throws Exception {
+        String addressWithSpaces = "  123,  Jurong   West  ";
+        Address expectedAddress = new Address("123, Jurong West");
+
+        assertEquals(expectedAddress, ParserUtil.parseAddress(addressWithSpaces));
+    }
 }
