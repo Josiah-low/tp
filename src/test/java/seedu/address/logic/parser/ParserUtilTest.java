@@ -36,6 +36,9 @@ public class ParserUtilTest {
 
     private static final String WHITESPACE = " \t\r\n";
 
+    private static final String VALID_NAME_WITH_EXTRA_INTERNAL_WHITESPACES = "Rachel        Walker";
+    private static final String VALID_NAME_WITH_INTERNAL_TAB = "Rachel\tWalker";
+
     @Test
     public void parseIndex_invalidInput_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseIndex("10 a"));
@@ -192,5 +195,13 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseName_validValueWithExtraInternalWhitespace_returnsSanitizedName() throws Exception {
+        Name expectedName = new Name(VALID_NAME);
+
+        assertEquals(expectedName, ParserUtil.parseName(VALID_NAME_WITH_EXTRA_INTERNAL_WHITESPACES));
+        assertEquals(expectedName, ParserUtil.parseName(VALID_NAME_WITH_INTERNAL_TAB));
     }
 }
