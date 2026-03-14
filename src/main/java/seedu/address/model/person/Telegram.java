@@ -10,10 +10,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Telegram {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Telegram handles should be alphanumeric or contain underscores, "
-                    + "can optionally start with '@', "
-                    + "and are usually 5-32 characters long. "
-                    + "It can also be left blank.";
+            "Telegram handles must be 5-32 characters long, can only contain alphanumeric characters or underscores, "
+                    + "and can optionally start with '@'.";
     public static final String VALIDATION_REGEX = "^$|^@?[a-zA-Z0-9_]{5,32}$";
 
     public final String telegramHandle;
@@ -26,7 +24,12 @@ public class Telegram {
     public Telegram(String telegramHandle) {
         requireNonNull(telegramHandle);
         checkArgument(isValidTelegramHandle(telegramHandle), MESSAGE_CONSTRAINTS);
-        this.telegramHandle = telegramHandle;
+
+        if (!telegramHandle.isEmpty() && !telegramHandle.startsWith("@")) {
+            this.telegramHandle = "@" + telegramHandle;
+        } else {
+            this.telegramHandle = telegramHandle;
+        }
     }
 
     /**
