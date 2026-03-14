@@ -18,7 +18,10 @@ public class ExpandedContactPanel extends UiPart<Region> {
     private static final String FXML = "ExpandedContactPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ExpandedContactPanel.class);
 
-    private Person person;
+    private static final String DEFAULT_MESSAGE = "Select any contact to see full details.";
+
+    // Person whose contact details will be displayed
+    private Person selectedContact;
 
     @FXML
     private Label label;
@@ -28,25 +31,25 @@ public class ExpandedContactPanel extends UiPart<Region> {
      */
     public ExpandedContactPanel() {
         super(FXML);
-        // this.person = person;
-        label.setText("PLACEHOLDER");
+        label.setText(DEFAULT_MESSAGE);
     }
 
-//    /**
-//     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
-//     */
-//    class PersonListViewCell extends ListCell<Person> {
-//        @Override
-//        protected void updateItem(Person person, boolean empty) {
-//            super.updateItem(person, empty);
-//
-//            if (empty || person == null) {
-//                setGraphic(null);
-//                setText(null);
-//            } else {
-//                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
-//            }
-//        }
-//    }
+    /**
+     * Sets the specified person whose contact details will be shown.
+     * This method is triggered when the user selects one of their contacts
+     * in their contact list using their mouse. Displays default message if
+     * the selected contact is null.
+     *
+     * @param selectedContact
+     */
+    public void setSelectedContact(Person selectedContact) {
+        if (selectedContact == null) {
+            this.selectedContact = null;
+            label.setText(DEFAULT_MESSAGE);
+        } else {
+            this.selectedContact = selectedContact;
+            label.setText(selectedContact.getName().fullName);
+        }
 
+    }
 }
