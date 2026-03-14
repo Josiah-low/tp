@@ -26,8 +26,10 @@ public class ExpandedContactPanel extends UiPart<Region> {
     /**
      * Creates a {@code PersonListPanel} with the given {@code ObservableList}.
      */
-    public ExpandedContactPanel(Person person) {
+    public ExpandedContactPanel() {
         super(FXML);
+        // this.person = person;
+        label.setText("PLACEHOLDER");
     }
 
 //    /**
