@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -35,6 +36,9 @@ public class PersonDetailsPanel extends UiPart<Region> {
 
     @FXML
     private VBox fieldValuesColumn;
+
+    @FXML
+    private ScrollPane fieldValuesScrollPane;
 
     @FXML
     private FlowPane tags;
@@ -82,8 +86,8 @@ public class PersonDetailsPanel extends UiPart<Region> {
     private void displayPersonDetails(Person person) {
         name.setText(formatValue(person.getName().fullName));
 
-        String[] fieldValues = { person.getName().fullName, person.getEmail().value, person.getTelegram().value,
-                person.getPhone().value, person.getAddress().value };
+        String[] fieldValues = { person.getEmail().value, person.getTelegram().value, person.getPhone().value,
+                person.getAddress().value };
 
         displayFields(FIELD_NAMES, fieldValues);
         displayTags(person);

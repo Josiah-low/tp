@@ -14,7 +14,7 @@ import seedu.address.model.person.Person;
 public class ExpandedContactPanel extends UiPart<Region> {
 
     private static final String FXML = "ExpandedContactPanel.fxml";
-    private static final String DEFAULT_MESSAGE = "Select a contact from the list for full details.";
+    private static final String DEFAULT_MESSAGE = "Select a contact to view details.";
 
     private final Logger logger = LogsCenter.getLogger(ExpandedContactPanel.class);
 

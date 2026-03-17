@@ -1,0 +1,32 @@
+#fieldValuesScrollPane {
+    -fx-background-color: #383838;
+}
+
+#fieldValuesScrollPane .viewport {
+    -fx-background-color: #383838;
+    -fx-background-insets: 0;
+}
+
+#fieldValuesScrollPane .scroll-bar:horizontal {
+    -fx-background-color: #383838;
+    -fx-pref-height: 14;
+}
+
+#fieldValuesScrollPane .scroll-bar:horizontal .thumb {
+    -fx-background-color: derive(#1d1d1d, 50%);
+    -fx-background-insets: 2;
+}
+
+#fieldValuesScrollPane .scroll-bar:horizontal .increment-button,
+#fieldValuesScrollPane .scroll-bar:horizontal .decrement-button {
+    -fx-background-color: transparent;
+}
+
+#fieldValuesScrollPane .scroll-bar:horizontal .increment-arrow,
+#fieldValuesScrollPane .scroll-bar:horizontal .decrement-arrow {
+    -fx-shape: " ";
+}
+
+#fieldValuesColumn {
+    -fx-padding: 0 0 24 0;
+}
