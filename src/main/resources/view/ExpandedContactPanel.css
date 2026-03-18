@@ -4,7 +4,7 @@
     -fx-border-color: #818181;
     -fx-border-radius: 10;
     -fx-border-width: 4;
-    -fx-padding: 22;
+    -fx-padding: 18 22 18 22;
 }
 
 .name-label {
@@ -44,16 +44,22 @@
 }
 
 .field-names-column .label {
-    -fx-text-fill: #242424;
+    -fx-text-fill: #1d1d1d;
     -fx-font-weight: bold;
     -fx-font-size: 16px;
 }
 
 .field-values-column .label {
-    -fx-text-fill: derive(#242424, 20%);
+    -fx-text-fill: derive(#1d1d1d, 20%);
     -fx-font-size: 16px;
 }
 
 .field-values-column {
     -fx-padding: 0 0 20 0;
+}
+
+.field-names-column .label.missing-field,
+.field-values-column .label.missing-field {
+    -fx-font-style: italic;
+    -fx-text-fill: derive(#1d1d1d, 40%);
 }

@@ -89,12 +89,8 @@ public class PersonDetailsPanel extends UiPart<Region> {
 
         name.setText(formatValue(person.getName().fullName));
 
-        String[] fieldValues = {
-                person.getEmail().value,
-                person.getTelegram().value,
-                person.getPhone().value,
-                person.getAddress().value
-        };
+        String[] fieldValues = { person.getEmail().value, person.getTelegram().value, person.getPhone().value,
+                person.getAddress().value };
 
         displayFields(fieldValues);
         displayTags(person);
@@ -108,7 +104,8 @@ public class PersonDetailsPanel extends UiPart<Region> {
     private void displayTags(Person person) {
         tags.getChildren().clear();
 
-        person.getTags().stream().sorted(Comparator.comparing(tag -> tag.tagName))
+        person.getTags().stream()
+                .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
@@ -118,8 +115,7 @@ public class PersonDetailsPanel extends UiPart<Region> {
      * @param fieldValues Array of field values.
      */
     private void displayFields(String[] fieldValues) {
-        assert FIELD_NAMES.length == fieldValues.length
-                : "Length of field names and values arrays must be equal";
+        assert FIELD_NAMES.length == fieldValues.length : "Length of field names and values arrays must be equal";
 
         fieldNamesColumn.getChildren().clear();
         fieldValuesColumn.getChildren().clear();
@@ -128,11 +124,16 @@ public class PersonDetailsPanel extends UiPart<Region> {
             Label nameLabel = new Label(FIELD_NAMES[i] + ":");
             Label valueLabel = new Label(formatValue(fieldValues[i]));
 
+            if (fieldValues[i].isEmpty() || fieldValues[i].equals("-")) {
+                nameLabel.getStyleClass().add("missing-field");
+                valueLabel.getStyleClass().add("missing-field");
+            }
+
             fieldNamesColumn.getChildren().add(nameLabel);
             fieldValuesColumn.getChildren().add(valueLabel);
         }
     }
-
+    
     /**
      * Formats a field value for display.
      * Returns "---" if the value is empty, or a dash ("-") representing an unfilled optional field.
