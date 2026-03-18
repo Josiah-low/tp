@@ -89,8 +89,12 @@ public class PersonDetailsPanel extends UiPart<Region> {
 
         name.setText(formatValue(person.getName().fullName));
 
-        String[] fieldValues = { person.getEmail().value, person.getTelegram().value, person.getPhone().value,
-                person.getAddress().value };
+        String[] fieldValues = {
+                person.getEmail().value,
+                person.getTelegram().value,
+                person.getPhone().value,
+                person.getAddress().value
+        };
 
         displayFields(fieldValues);
         displayTags(person);
@@ -110,34 +114,60 @@ public class PersonDetailsPanel extends UiPart<Region> {
     }
 
     /**
-     * Displays field names and their corresponding field values.
+     * Displays all the field names and their corresponding field values.
      *
-     * @param fieldValues Array of field values.
+     * @param fieldValues Array of field values with same order as FIELD_NAMES.
      */
     private void displayFields(String[] fieldValues) {
-        assert FIELD_NAMES.length == fieldValues.length : "Length of field names and values arrays must be equal";
+        assert FIELD_NAMES.length == fieldValues.length
+                : "Length of field names and values arrays must be equal";
 
         fieldNamesColumn.getChildren().clear();
         fieldValuesColumn.getChildren().clear();
 
         for (int i = 0; i < fieldValues.length; i++) {
-            Label nameLabel = new Label(FIELD_NAMES[i] + ":");
-            Label valueLabel = new Label(formatValue(fieldValues[i]));
-
-            if (fieldValues[i].isEmpty() || fieldValues[i].equals("-")) {
-                nameLabel.getStyleClass().add("missing-field");
-                valueLabel.getStyleClass().add("missing-field");
-            }
-
-            fieldNamesColumn.getChildren().add(nameLabel);
-            fieldValuesColumn.getChildren().add(valueLabel);
+            addFieldToColumns(FIELD_NAMES[i], fieldValues[i]);
         }
     }
-    
+
+    /**
+    * Creates and adds two labels for a single field to the VBox columns.
+    * The labels each represent the field name and its value, e.g. "Telegram:" and "@alice123".
+    *
+    * @param fieldName The name of the field.
+    * @param fieldValue The value of the field.
+    */
+    private void addFieldToColumns(String fieldName, String fieldValue) {
+        String formattedValue = formatValue(fieldValue);
+
+        Label nameLabel = createFieldLabel(fieldName + ":", fieldValue);
+        Label valueLabel = createFieldLabel(formattedValue, fieldValue);
+
+        fieldNamesColumn.getChildren().add(nameLabel);
+        fieldValuesColumn.getChildren().add(valueLabel);
+    }
+
+    /**
+     * Creates a field label and applies styling for missing field.
+     *
+     * @param text The text to display in the label.
+     * @param originalValue The original field value used to check if the field is missing.
+     * @return A {@code Label} with the text with styling applied for missing field.
+     */
+    private Label createFieldLabel(String text, String originalValue) {
+        Label label = new Label(text);
+
+        if (isMissingValue(originalValue)) {
+            label.getStyleClass().add("missing-field");
+        }
+
+        return label;
+    }
+
     /**
      * Formats a field value for display.
      * Returns "---" if the value is empty, or a dash ("-") representing an unfilled optional field.
-     * Returns the actual value otherwise.
+     * Returns the value unchanged otherwise.
      *
      * @param value The value of the field.
      * @return The formatted field value for display.
@@ -145,11 +175,21 @@ public class PersonDetailsPanel extends UiPart<Region> {
     private String formatValue(String value) {
         assert value != null : "Field values must not be null";
 
-        if (value.isEmpty() || value.equals("-")) {
+        if (isMissingValue(value)) {
             return EMPTY_FIELD_VALUE;
         }
 
         return value;
+    }
+
+    /**
+    * Checks whether a field value is missing.
+    *
+    * @param value The field value to check.
+    * @return true if the value is missing, false otherwise.
+    */
+    private boolean isMissingValue(String value) {
+        return (value.isEmpty() || value.equals("-"));
     }
 
 }
