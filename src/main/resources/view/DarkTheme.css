@@ -368,6 +368,7 @@
 }
 
 .field-missing {
-    -fx-text-fill: #808080;
+    -fx-text-fill: #202020;
+    -fx-font-family: "Segoe UI Light";
     -fx-font-style: italic;
 }
