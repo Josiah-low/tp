@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static seedu.address.ui.PersonDetailsPanel.EMPTY_FIELD_VALUE;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
@@ -27,7 +29,7 @@ public class PersonCardField extends UiPart<Region> {
         super(FXML);
         this.fieldType.setText(fieldType + ":");
         if (value.isEmpty() || value.equals("-")) {
-            this.value.setText("-");
+            this.value.setText(EMPTY_FIELD_VALUE);
             this.value.getStyleClass().add("field-missing");
         } else {
             this.value.setText(value);

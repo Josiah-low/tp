@@ -21,7 +21,7 @@ public class PersonDetailsPanel extends UiPart<Region> {
     private static final String FXML = "PersonDetailsPanel.fxml";
 
     private static final String[] FIELD_NAMES = { "Email", "Telegram", "Phone", "Address" };
-    private static final String EMPTY_FIELD_VALUE = "---";
+    public static final String EMPTY_FIELD_VALUE = "---";
 
     private final Logger logger = LogsCenter.getLogger(PersonDetailsPanel.class);
 
