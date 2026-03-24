@@ -36,6 +36,10 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
    * `exit` : Exits the app.
 
+   * `enroll 1 c/CS2103T tut/T01` : Enrolls the first student into CS2103T tutorial group T01.
+
+   * `attend 1 c/CS2103T w/1` : Marks the first student as attended for CS2103T in Week 1.
+
 1. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
@@ -111,6 +115,63 @@ Format: `edit INDEX [n/NAME] [p/PHONE_Number] [e/EMAIL] [a/ADDRESS] [tg/TELEGRAM
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
+### Enrolling a person : `enroll`
+
+Enrolls a student into a specific course and tutorial group.
+
+Format: `enroll INDEX c/COURSE_CODE tut/TUTORIAL_GROUP`
+
+* Enrolls the student at the specified `INDEX` into the `COURSE_CODE` and `TUTORIAL_GROUP`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** (e.g., 1, 2, 3, …).
+
+Examples:
+* `enroll 1 c/CS2103T tut/T01` enrolls the 1st student into CS2103T tutorial group T01.
+
+### Unenrolling a person : `unenroll`
+
+Unenrolls a student from a specific course.
+
+Format: `unenroll INDEX c/COURSE_CODE`
+
+* Unenrolls the student at the specified `INDEX` from the `COURSE_CODE`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** (e.g., 1, 2, 3, …).
+
+Examples:
+* `unenroll 1 c/CS2103T` unenrolls the 1st student from CS2103T.
+
+### Marking attendance : `attend`
+
+Marks a student's attendance for a specific course and week.
+
+Format: `attend INDEX c/COURSE_CODE w/WEEK`
+
+* Marks the attendance for the student at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** (e.g., 1, 2, 3, …).
+* `COURSE_CODE` must be a course the student is currently enrolled in.
+* `WEEK` must be a number from 1 to 13 (inclusive).
+
+Examples:
+* `attend 1 c/CS2103T w/1` marks the attendance of the 1st student for CS2103T in Week 1.
+* `attend 2 c/CS2101 w/10` marks the attendance of the 2nd student for CS2101 in Week 10.
+
+### Unmarking attendance : `unattend`
+
+Unmarks a student's attendance for a specific course and week.
+
+Format: `unattend INDEX c/COURSE_CODE w/WEEK`
+
+* Unmarks the attendance for the student at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** (e.g., 1, 2, 3, …).
+* `COURSE_CODE` must be a course the student is currently enrolled in.
+* `WEEK` must be a number from 1 to 13 (inclusive).
+
+Examples:
+* `unattend 1 c/CS2103T w/1` unmarks the attendance of the 1st student for CS2103T in Week 1.
 
 ### Locating persons by name: `find`
 
@@ -200,3 +261,7 @@ Action | Format, Examples
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
 **Help** | `help`
+**Enroll** | `enroll INDEX c/COURSE_CODE tut/TUTORIAL_GROUP` <br> e.g., `enroll 1 c/CS2103T tut/T01`
+**Unenroll** | `unenroll INDEX c/COURSE_CODE` <br> e.g., `unenroll 1 c/CS2103T`
+**Attend** | `attend INDEX c/COURSE_CODE w/WEEK` <br> e.g., `attend 1 c/CS2103T w/1`
+**Unattend** | `unattend INDEX c/COURSE_CODE w/WEEK` <br> e.g., `unattend 1 c/CS2103T w/1`
