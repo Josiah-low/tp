@@ -1,0 +1,62 @@
+package seedu.address.logic.commands;
+
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.AddressBook;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.TutInfo;
+import seedu.address.testutil.PersonBuilder;
+
+public class AttendCommandTest {
+
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
+    @Test
+    public void execute_attendUnfilteredList_success() {
+        Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        String courseCode = "CS2103T";
+        int week = 1;
+        // Setup: Enrol the person first
+        TutInfo tutInfo = new TutInfo(courseCode, "T01");
+        List<TutInfo> tutInfos = new ArrayList<>(personToEdit.getTutInfos());
+        tutInfos.add(tutInfo);
+        Person personWithCourse = new PersonBuilder(personToEdit).withTutInfos(tutInfos).build();
+        model.setPerson(personToEdit, personWithCourse);
+
+        AttendCommand attendCommand = new AttendCommand(INDEX_FIRST_PERSON, courseCode, week);
+
+        TutInfo expectedTutInfo = tutInfo.setAttendance(week, true);
+        List<TutInfo> expectedTutInfos = new ArrayList<>(tutInfos);
+        expectedTutInfos.set(expectedTutInfos.indexOf(tutInfo), expectedTutInfo);
+        Person expectedPerson = new PersonBuilder(personWithCourse).withTutInfos(expectedTutInfos).build();
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setPerson(personWithCourse, expectedPerson);
+
+        String expectedMessage = String.format(AttendCommand.MESSAGE_SUCCESS, INDEX_FIRST_PERSON.getOneBased(),
+                personWithCourse.getName(), courseCode, "T01", week);
+
+        assertCommandSuccess(attendCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_courseNotFound_throwsCommandException() {
+        String courseCode = "CS2103T";
+        int week = 1;
+        AttendCommand attendCommand = new AttendCommand(INDEX_FIRST_PERSON, courseCode, week);
+        String expectedMessage = String.format(AttendCommand.MESSAGE_COURSE_NOT_FOUND, courseCode);
+
+        assertCommandFailure(attendCommand, model, expectedMessage);
+    }
+}

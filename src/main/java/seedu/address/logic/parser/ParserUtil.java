@@ -190,6 +190,25 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String week} into an {@code int}.
+     * @throws ParseException if the given {@code week} is invalid.
+     */
+    public static int parseWeek(String week) throws ParseException {
+        requireNonNull(week);
+        String trimmedWeek = week.trim();
+        int weekInt;
+        try {
+            weekInt = Integer.parseInt(trimmedWeek);
+        } catch (NumberFormatException e) {
+            throw new ParseException("Week must be a number.");
+        }
+        if (weekInt < 1 || weekInt > TutInfo.NUMBER_OF_WEEKS_PER_SEM) {
+            throw new ParseException("Week must be between 1 and " + TutInfo.NUMBER_OF_WEEKS_PER_SEM);
+        }
+        return weekInt;
+    }
+
+    /**
     * Checks if the index string is empty.
     *
     * @param input the trimmed index string
