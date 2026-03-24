@@ -265,20 +265,10 @@ public class PersonDetailsPanel extends UiPart<Region> {
      * @param tutInfo The TutInfo object representing the course and tutorial entry.
      */
     private void addCourseTutorialLabel(TutInfo tutInfo) {
-        Label label = new Label(formatCourseTutorialText(tutInfo));
+        Label label = new Label(tutInfo.toDisplayString());
         label.getStyleClass().add("course-tutorial-label");
 
         courseTutorials.getChildren().add(label);
-    }
-
-    /**
-     * Formats the display text for a course and tutorial entry.
-     *
-     * @param tutInfo The TutInfo object.
-     * @return The display text of course code and tutorial code in uppercase, separated by a space.
-     */
-    private String formatCourseTutorialText(TutInfo tutInfo) {
-        return tutInfo.getCourseCode().toUpperCase() + " " + tutInfo.getTutorialCode().toUpperCase();
     }
 
     /**
