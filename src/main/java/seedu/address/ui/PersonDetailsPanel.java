@@ -27,6 +27,8 @@ public class PersonDetailsPanel extends UiPart<Region> {
 
     private final Logger logger = LogsCenter.getLogger(PersonDetailsPanel.class);
 
+    private final Person person;
+
     @FXML
     private Label name;
 
@@ -56,6 +58,7 @@ public class PersonDetailsPanel extends UiPart<Region> {
      */
     public PersonDetailsPanel(String defaultMessage) {
         super(FXML);
+        this.person = null;
 
         hideOptionalSections();
         displayDefaultDetails(defaultMessage);
@@ -68,7 +71,11 @@ public class PersonDetailsPanel extends UiPart<Region> {
      */
     public PersonDetailsPanel(Person person) {
         super(FXML);
-        displayPersonDetails(person);
+        
+        assert person != null : "Person must not be null";
+        this.person = person;
+
+        displayPersonDetails();
     }
 
     /**
@@ -92,10 +99,8 @@ public class PersonDetailsPanel extends UiPart<Region> {
 
     /**
      * Displays the full details of a {@code person} in the panel.
-     *
-     * @param person The {@code person} whose details are displayed.
      */
-    private void displayPersonDetails(Person person) {
+    private void displayPersonDetails() {
 
         name.setText(formatFieldValue(person.getName().fullName));
 
@@ -106,19 +111,16 @@ public class PersonDetailsPanel extends UiPart<Region> {
                 person.getAddress().value
         };
 
-        displayCourseTutorials(person);
+        displayCourseTutorials();
         displayFields(fieldValues);
-        displayTags(person);
+        displayTags();
     }
 
     /**
     * Displays the tags of a {@code person} in the panel.
-    * Sorts the tags by tag name.
-    * Hides the tags section from UI if the person has no tags.
-    *
-    * @param person The {@code person} whose tags are displayed.
+    * Sorts the tags by tag name and hides the tags section from UI if the person has no tags.
     */
-    private void displayTags(Person person) {
+    private void displayTags() {
         assert person.getTags() != null : "Tags of the person must not be null";
 
         tags.getChildren().clear();
@@ -220,13 +222,11 @@ public class PersonDetailsPanel extends UiPart<Region> {
     }
 
     /**
-    * Displays the course and tutorial information of a person in the courseTutorials HBox.
+    * Displays the course and tutorial information of the {@code person} in the courseTutorials HBox.
     * Sorts the tutorial information by course code first, then by tutorial code.
     * Hides the courseTutorials section from UI if the person has no tutorials.
-    *
-    * @param person The person whose course and tutorial information is displayed.
     */
-    private void displayCourseTutorials(Person person) {
+    private void displayCourseTutorials() { 
         assert person.getTutInfos() != null : "Tutorial information list of the person must not be null";
 
         courseTutorials.getChildren().clear();
