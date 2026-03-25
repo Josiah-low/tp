@@ -167,5 +167,4 @@ public class ModelManager implements Model {
     public Person getPersonToShow() {
         return personToShowNext.get();
     }
-    
 }
