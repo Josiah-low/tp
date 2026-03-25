@@ -27,7 +27,7 @@ public class ModelManager implements Model {
 
     // Solution below inspired by https://stackoverflow.com/q/53745004
     // Tracks which Person should be shown in the Expanded Contact Panel
-    private final ObjectProperty<Person> personToShowNext = new SimpleObjectProperty<>();
+    private final ObjectProperty<Person> personToShow = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -155,16 +155,16 @@ public class ModelManager implements Model {
 
     @Override
     public ObjectProperty<Person> personToShowProperty() {
-        return personToShowNext;
+        return personToShow;
     }
 
     @Override
     public void setPersonToShow(Person person) {
-        personToShowNext.set(person);
+        personToShow.set(person);
     }
 
     @Override
     public Person getPersonToShow() {
-        return personToShowNext.get();
+        return personToShow.get();
     }
 }
