@@ -393,12 +393,12 @@
     -fx-pref-width: 12;
 }
 
-.attended {
+.list-cell .label.attended {
     -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: #32a852;
 }
 
-.unattended {
+.list-cell .label.unattended {
     -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: #101010;
+    -fx-text-fill: #808080;
 }

@@ -40,6 +40,9 @@ public class AttendanceListPanel extends UiPart<Region> {
         tutInfoListView.setCellFactory(listView -> new TutInfoListViewCell());
     }
 
+    /**
+     * Custom {@code ListCell} that displays the graphics of a {@code TutInfo} using a {@code AttendanceCard}.
+     */
     class TutInfoListViewCell extends ListCell<TutInfo> {
         @Override
         protected void updateItem(TutInfo tutInfo, boolean empty) {
