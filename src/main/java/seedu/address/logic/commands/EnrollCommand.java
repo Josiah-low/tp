@@ -71,6 +71,8 @@ public class EnrollCommand extends Command {
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
+        model.setPersonToShow(editedPerson); // Always show the enrolled person
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, tutInfoToAdd.getCourseCode(),
                 tutInfoToAdd.getTutorialCode()));
     }

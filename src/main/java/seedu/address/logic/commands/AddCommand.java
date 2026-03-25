@@ -61,6 +61,8 @@ public class AddCommand extends Command {
         }
 
         model.addPerson(toAdd);
+        model.setPersonToShow(toAdd); // Always show newly added person
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
     }
 

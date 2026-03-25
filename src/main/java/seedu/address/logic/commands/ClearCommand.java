@@ -17,7 +17,10 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+
         model.setAddressBook(new AddressBook());
+        model.setPersonToShow(null); // Always clear expanded panel after clearing list
+
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
