@@ -19,6 +19,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Telegram;
+import seedu.address.model.person.TutInfo;
 import seedu.address.model.tag.Tag;
 
 public class ParserUtilTest {
@@ -27,6 +28,9 @@ public class ParserUtilTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_COURSE = "CS2103!";
+    private static final String INVALID_TUTORIAL = "T 18";
+    private static final String INVALID_WEEK = "W4";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -34,6 +38,9 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_COURSE = "CS2101";
+    private static final String VALID_TUTORIAL = "T30";
+    private static final int VALID_WEEK = 2;
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -299,5 +306,103 @@ public class ParserUtilTest {
         Telegram expectedTelegram = new Telegram("-");
         assertEquals(expectedTelegram, ParserUtil.parseTelegram(""));
         assertEquals(expectedTelegram, ParserUtil.parseTelegram("  \n  "));
+    }
+
+    @Test
+    public void parseCourse_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseCourse(null));
+    }
+
+    @Test
+    public void parseCourse_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseCourse(INVALID_COURSE));
+    }
+
+    @Test
+    public void parseCourse_placeholderValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseCourse("-"));
+    }
+
+    @Test
+    public void parseCourse_validValueWithoutWhitespace_returnsCourse() throws Exception {
+        assertEquals(VALID_COURSE, ParserUtil.parseCourse(VALID_COURSE));
+    }
+
+    @Test
+    public void parseCourse_validValueWithWhitespace_returnsTrimmedCourse() throws Exception {
+        String validCourseWithWhitespace = WHITESPACE + VALID_COURSE + WHITESPACE;
+        assertEquals(VALID_COURSE, ParserUtil.parseCourse(validCourseWithWhitespace));
+    }
+
+    @Test
+    public void parseTutorial_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseTutorial(null));
+    }
+
+    @Test
+    public void parseTutorial_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseTutorial(INVALID_TUTORIAL));
+    }
+
+    @Test
+    public void parseTutorial_placeholderValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseTutorial("-"));
+    }
+
+    @Test
+    public void parseTutorial_validValueWithoutWhitespace_returnsTutorial() throws Exception {
+        assertEquals(VALID_TUTORIAL, ParserUtil.parseTutorial(VALID_TUTORIAL));
+    }
+
+    @Test
+    public void parseTutorial_validValueWithWhitespace_returnsTrimmedTutorial() throws Exception {
+        String validTutorialWithWhitespace = WHITESPACE + VALID_TUTORIAL + WHITESPACE;
+        assertEquals(VALID_TUTORIAL, ParserUtil.parseTutorial(validTutorialWithWhitespace));
+    }
+
+    @Test
+    public void parseWeek_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseWeek((String) null));
+    }
+
+    @Test
+    public void parseWeek_invalidValue_throwsParseException() {
+        // Empty string
+        assertThrows(ParseException.class, () -> ParserUtil.parseWeek(""));
+
+        // Contains non-numeric characters
+        assertThrows(ParseException.class, () -> ParserUtil.parseWeek(INVALID_WEEK));
+
+        // Contains negative values
+        assertThrows(ParseException.class, () -> ParserUtil.parseWeek("-4"));
+
+        // Contains non-integer values
+        assertThrows(ParseException.class, () -> ParserUtil.parseWeek("3.5"));
+    }
+
+    @Test
+    public void parseWeek_valueOutOfBounds_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseWeek("0"));
+
+        assertThrows(ParseException.class, ()
+                -> ParserUtil.parseWeek(String.valueOf(TutInfo.NUMBER_OF_WEEKS_PER_SEM + 1)));
+    }
+
+    @Test
+    public void parseWeek_validBoundaryValues_returnsWeek() throws Exception {
+        assertEquals(1, ParserUtil.parseWeek(String.valueOf(1)));
+        assertEquals(TutInfo.NUMBER_OF_WEEKS_PER_SEM,
+                ParserUtil.parseWeek(String.valueOf(TutInfo.NUMBER_OF_WEEKS_PER_SEM)));
+    }
+
+    @Test
+    public void parseWeek_validValueWithoutWhitespace_returnsWeek() throws Exception {
+        assertEquals(VALID_WEEK, ParserUtil.parseWeek(String.valueOf(VALID_WEEK)));
+    }
+
+    @Test
+    public void parseWeek_validValueWithWhitespace_returnsWeek() throws Exception {
+        String weekWithWhitespace = WHITESPACE + String.valueOf(VALID_WEEK) + WHITESPACE;
+        assertEquals(VALID_WEEK, ParserUtil.parseWeek(weekWithWhitespace));
     }
 }
