@@ -14,5 +14,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_TELEGRAM = new Prefix("tg/");
     public static final Prefix PREFIX_COURSE = new Prefix("c/");
     public static final Prefix PREFIX_TUTORIAL = new Prefix("tut/");
+    public static final Prefix PREFIX_WEEK = new Prefix("w/");
 
 }
