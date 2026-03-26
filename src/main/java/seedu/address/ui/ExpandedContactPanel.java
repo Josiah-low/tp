@@ -42,11 +42,11 @@ public class ExpandedContactPanel extends UiPart<Region> {
         detailsContainer.getStyleClass().remove("contact-selected");
 
         if (selectedPerson == null) {
-            logger.fine("Showing default details due to no contact selected");
+            logger.fine("Displaying default details due to no contact selected");
 
             showDefaultDetails();
         } else {
-            logger.fine("Displaying expanded contact details for: " + selectedPerson.getName().fullName);
+            logger.fine("Displaying full details for: " + selectedPerson.getName().fullName);
 
             showPersonDetails(selectedPerson);
             showAttendanceSection(selectedPerson);

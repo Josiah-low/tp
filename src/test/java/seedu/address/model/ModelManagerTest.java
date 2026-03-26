@@ -94,6 +94,20 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void setAndGetPersonToShow_validPerson_returnsCorrectPerson() {
+        modelManager.setPersonToShow(ALICE);
+        assertEquals(ALICE, modelManager.personToShowProperty().get());
+        assertEquals(ALICE, modelManager.getPersonToShow());
+    }
+
+    @Test
+    public void setAndGetPersonToShow_nullPerson_returnsNull() {
+        modelManager.setPersonToShow(null);
+        assertEquals(null, modelManager.personToShowProperty().get());
+        assertEquals(null, modelManager.getPersonToShow());
+    }
+
+    @Test
     public void equals() {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         AddressBook differentAddressBook = new AddressBook();

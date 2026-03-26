@@ -28,6 +28,7 @@ public class MainWindow extends UiPart<Stage> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
+
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
@@ -115,7 +116,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList(),
-                person -> expandedContactPanel.setSelectedPerson(person));
+                person -> logic.setPersonToShow(person));
+
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -128,6 +130,11 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         expandedContactPanel = new ExpandedContactPanel();
+
+        logic.personToShowProperty().addListener((obs, oldPerson, newPerson) -> {
+            expandedContactPanel.setSelectedPerson(newPerson);
+        });
+
         expandedContactPanelPlaceholder.getChildren().add(expandedContactPanel.getRoot());
     }
 

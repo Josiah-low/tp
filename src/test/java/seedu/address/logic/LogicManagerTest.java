@@ -17,6 +17,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.DeleteCommand;
@@ -32,6 +33,7 @@ import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.TypicalPersons;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy IO exception");
@@ -70,7 +72,11 @@ public class LogicManagerTest {
     @Test
     public void execute_validCommand_success() throws Exception {
         String listCommand = ListCommand.COMMAND_WORD;
+        Person firstPerson = TypicalPersons.AMY;
+        model.addPerson(firstPerson);
+
         assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+        assertEquals(firstPerson, model.getPersonToShow());
     }
 
     @Test
@@ -86,8 +92,25 @@ public class LogicManagerTest {
     }
 
     @Test
+    public void setAndGetGuiSettings_success() {
+        GuiSettings settings = new GuiSettings(1, 2, 3, 4);
+        logic.setGuiSettings(settings);
+        assertEquals(settings, logic.getGuiSettings());
+    }
+
+    @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
+    }
+
+    @Test
+    public void setPersonToShow_updatesPersonToShowCorrectly() {
+        Person firstPerson = TypicalPersons.AMY;
+        logic.setPersonToShow(firstPerson);
+        assertEquals(firstPerson, logic.personToShowProperty().get());
+
+        logic.setPersonToShow(null);
+        assertEquals(null, logic.personToShowProperty().get());
     }
 
     /**
