@@ -380,13 +380,13 @@
 }
 
 .tut-info-scroll {
-    -fx-background-color: transparent;
+    -fx-background-color: #cacaca;
     -fx-border-color: transparent;
     -fx-padding: 0;
 }
 
 .tut-info-scroll .viewport {
-    -fx-background-color: transparent;
+    -fx-background-color: #cacaca;
 }
 
 .tut-info-scroll .scroll-bar:vertical {
