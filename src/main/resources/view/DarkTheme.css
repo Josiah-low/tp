@@ -435,7 +435,7 @@
 .attendance-list .list-cell:filled:even,
 .attendance-list .list-cell:filled:odd,
 .attendance-list .list-cell:filled:selected {
-    -fx-background-color: #cacaca;
+    -fx-background-color: transparent;
 }
 
 .attendance-list .label {
